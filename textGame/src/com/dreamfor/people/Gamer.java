@@ -137,7 +137,7 @@ public abstract class Gamer implements GamePeople{
      * @return 创建成功返回true，否则返回false
      */
     @Override
-    public boolean getGamerImformationByTips(){
+    public boolean getGamerInformationByTips(){
         Scanner sc = new Scanner(System.in);
         System.out.printf("请输入角色姓名：");
         this.name = sc.nextLine();

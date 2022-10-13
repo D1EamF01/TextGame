@@ -39,5 +39,5 @@ public interface GamePeople {
      * 通过提示创建角色
      * @return 创建成功返回true，否则返回false
      */
-    boolean getGamerImformationByTips();
+    boolean getGamerInformationByTips();
 }

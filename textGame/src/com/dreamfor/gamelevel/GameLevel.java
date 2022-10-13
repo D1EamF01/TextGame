@@ -2,6 +2,8 @@ package com.dreamfor.gamelevel;
 
 import com.dreamfor.people.Gamer;
 
+import java.util.ArrayList;
+
 public interface GameLevel {
     /**
      * 随机生成一定数量的怪物，怪物数值随机
