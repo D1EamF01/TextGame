@@ -107,7 +107,7 @@ public abstract class GameLevelDemo implements GameLevel{
 
     /**
      * 创建一个完整的关卡，并返回关卡列表
-     * @return 完整关卡列表（随机数量随即关卡 + 一个boss关卡）
+     * @return 完整关卡列表（随机数量(2 - 5之间)随即关卡 + 一个boss关卡）
      */
     public static ArrayList<GameLevelDemo> createLevelList(){
         ArrayList<GameLevelDemo> levels = new ArrayList();

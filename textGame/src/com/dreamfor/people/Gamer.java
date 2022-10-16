@@ -5,7 +5,7 @@ import com.dreamfor.object.Weapon;
 
 import java.util.Scanner;
 
-public abstract class Gamer implements GamePeople{
+public abstract class Gamer implements GamePeople, Comparable<Gamer>{
     protected String name;
     // 名称
 
@@ -17,7 +17,6 @@ public abstract class Gamer implements GamePeople{
 
     protected String bornLocation;
     // 出生地
-
 
     protected int lifeNumber;
     // 生命值
@@ -45,6 +44,29 @@ public abstract class Gamer implements GamePeople{
     protected Armor armor;
     // 防具
 
+
+    @Override
+    public String toString() {
+        return "Gamer{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", sex=" + sex +
+                ", bornLocation='" + bornLocation + '\'' +
+                ", lifeNumber=" + lifeNumber +
+                ", powerNumber=" + powerNumber +
+                ", attackNumber=" + attackNumber +
+                ", defenceNumber=" + defenceNumber +
+                ", speedNumber=" + speedNumber +
+                ", checkPoint=" + checkPoint +
+                ", weapon=" + weapon +
+                ", armor=" + armor +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Gamer g){
+        return g.speedNumber - this.speedNumber;
+    }
 
     /**
      * 角色死亡判定
@@ -120,7 +142,7 @@ public abstract class Gamer implements GamePeople{
      * 非自定义生成，给当前对象赋予随机的数值
      * 生成范围：生命值，法力值，100-200
      * 攻击力，防御力，20-50
-     * 速度，0-10
+     * 速度，1-10
      * @return 赋值成功返回true，否则返回false
      */
     protected boolean getRamdomValueGamer(){
@@ -128,7 +150,7 @@ public abstract class Gamer implements GamePeople{
         if(powerNumber == 0) this.powerNumber = (int) (Math.random() * 100 + 100);
         if(attackNumber == 0) this.attackNumber = (int) (Math.random() * 30 + 20);
         if(defenceNumber == 0) this.defenceNumber = (int) (Math.random() * 30 + 20);
-        if(speedNumber == 0) this.speedNumber = (int) (Math.random() * 10);
+        if(speedNumber == 0) this.speedNumber = (int) (Math.random() * 9 + 1);
         return true;
     }
 

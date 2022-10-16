@@ -6,8 +6,10 @@ import com.dreamfor.gamelevel.NormalLevel;
 import com.dreamfor.object.Armor;
 import com.dreamfor.object.Weapon;
 import com.dreamfor.people.Boss;
+import com.dreamfor.people.Gamer;
 import com.dreamfor.people.Monster;
 import com.dreamfor.people.User;
+import com.dreamfor.playlink.PlayLink;
 
 import java.util.ArrayList;
 
@@ -57,9 +59,14 @@ public class Test {
 //        Boss b = new Boss();
 //        b.createRandomNameBoss();
 //        System.out.println(b.show());
-
-        System.out.println("=====================随机关卡生成测试=====================");
-        ArrayList<GameLevelDemo> levels = GameLevelDemo.createLevelList();
-        GameLevelDemo.showLevelsAll(levels);
+//
+//        System.out.println("=====================随机关卡生成测试=====================");
+//        ArrayList<GameLevelDemo> levels = GameLevelDemo.createLevelList();
+//        GameLevelDemo.showLevelsAll(levels);
+//
+        System.out.println("=====================关卡流程初步测试（速度值比较先后）=====================");
+        Gamer g = new User();
+        g.getGamerInformationByTips();
+        PlayLink.play(g);
     }
 }
