@@ -12,6 +12,7 @@ public class User extends Gamer{
         }
         if(super.fight(g)){
             System.out.println(name + "成功对" + g.name + "造成了伤害！");
+//            g.speedNumber = (g.speedNumber - 1) <= 0 ? 1 : g.speedNumber - 1;
             return true;
         } else {
             System.out.println("我们未能击穿" + g.name + "的装甲!");
@@ -28,7 +29,6 @@ public class User extends Gamer{
             System.out.println("报告！敌方火力太猛，请求支援！");
             if(die()){
                 System.out.println(name + "已阵亡！");
-                System.exit(0);
             }
             return false;
         }

@@ -98,7 +98,7 @@ public abstract class GameLevelDemo implements GameLevel{
         if(choose == 1){
             temp += "=====================\n";
             for (int i = 0; i < monstersList.size(); i++) {
-                temp += monstersList.get(i).show();
+                temp += monstersList.get(i).showPlay();
                 temp += "=====================\n";
             }
         }

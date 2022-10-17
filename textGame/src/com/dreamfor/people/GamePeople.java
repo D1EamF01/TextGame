@@ -36,8 +36,20 @@ public interface GamePeople {
     String show();
 
     /**
+     * 输出角色的属性值，不输出其余所有
+     * @return 返回现有角色的各个属性值，为战斗而设置的函数
+     */
+    String showPlay();
+
+    /**
      * 通过提示创建角色
      * @return 创建成功返回true，否则返回false
      */
     boolean getGamerInformationByTips();
+
+    /**
+     * 闪避攻击判定
+     * @return 闪避结果，成功true：false
+     */
+    boolean dodgeAttack(Gamer attacker, Gamer dodger);
 }

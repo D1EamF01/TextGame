@@ -18,8 +18,14 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
     protected String bornLocation;
     // 出生地
 
+    protected int maxLifeNumber;
+    // 最大生命值
+
     protected int lifeNumber;
     // 生命值
+
+    protected int maxPowerNumber;
+    // 最大法力值
 
     protected int powerNumber;
     // 法力值
@@ -29,6 +35,9 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
 
     protected int defenceNumber;
     // 防御力（初始）
+
+    protected int maxSpeedNumber;
+    // 最大速度值
 
     protected int speedNumber;
     // 速度（初始固定），决定逃跑和闪避效果
@@ -44,6 +53,15 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
     protected Armor armor;
     // 防具
 
+
+    /**
+     * 闪避攻击判定
+     * 闪避速度计算，理论两者数值越大，则闪避补偿越少，同时，对于速度值差距过大的补偿较为可观
+     * @return 闪避结果，成功true：false
+     */
+    public boolean dodgeAttack(Gamer attacker, Gamer dodger){
+        return attacker.speedNumber < (dodger.speedNumber + (int)(Math.random() * attacker.speedNumber / dodger.speedNumber));
+    }
 
     @Override
     public String toString() {
@@ -80,10 +98,8 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
     @Override
     public boolean getOut(Gamer o) {
         if(o.speedNumber > speedNumber){
-            System.out.println("逃跑失败!");
             return false;
         } else{
-            System.out.println("逃跑成功!");
             return true;
         }
     }
@@ -100,6 +116,7 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
             if(weapon != null){
                 damage += weapon.getAttackNumber();
             }
+            if(dodgeAttack(this,g) && (int)(Math.random() * this.speedNumber * 10) % (int)(Math.random() * g.speedNumber * 10) == 0) return false;
             return !g.defence(damage);
         } else{
             System.out.println("未指定对手，请重试");
@@ -130,8 +147,26 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
     @Override
     public String show(){
         String temp = "";
-        temp += name + ", " + sex + " 今年" + age + "岁。\n";
-        if(bornLocation != null) temp += "来自于" + bornLocation + "\n";
+        temp += name;
+        if(this instanceof User) {
+            temp += ", " + sex + " 今年" + age + "岁。\n";
+//            if(sex != 0) temp += ", " + sex;
+            if(bornLocation != null) temp += "来自于" + bornLocation + "\n";
+        }
+        temp += "攻击力:" + attackNumber + "\n防御力:" + defenceNumber + "\n速度:" + speedNumber + "\n当前生命值:" + lifeNumber + "\n当前法力值:" + powerNumber;
+        if(weapon != null) temp += "\n武器:" + weapon.getObjectName();
+        if(armor != null) temp += "\n防具:" + armor.getObjectName();
+        return temp + "\n";
+    }
+
+    /**
+     * 输出角色的属性值，不输出其余所有
+     * @return 返回现有角色的各个属性值，为战斗而设置的函数
+     */
+    @Override
+    public String showPlay(){
+        String temp = "";
+        temp += name + "\n";
         temp += "攻击力:" + attackNumber + "\n防御力:" + defenceNumber + "\n速度:" + speedNumber + "\n当前生命值:" + lifeNumber + "\n当前法力值:" + powerNumber;
         if(weapon != null) temp += "\n武器:" + weapon.getObjectName();
         if(armor != null) temp += "\n防具:" + armor.getObjectName();
@@ -150,7 +185,10 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
         if(powerNumber == 0) this.powerNumber = (int) (Math.random() * 100 + 100);
         if(attackNumber == 0) this.attackNumber = (int) (Math.random() * 30 + 20);
         if(defenceNumber == 0) this.defenceNumber = (int) (Math.random() * 30 + 20);
-        if(speedNumber == 0) this.speedNumber = (int) (Math.random() * 9 + 1);
+        if(speedNumber == 0) this.speedNumber = (int) (Math.random() * 7 + 3);
+        maxLifeNumber = lifeNumber;
+        maxPowerNumber = powerNumber;
+        maxSpeedNumber = speedNumber;
         return true;
     }
 
@@ -275,5 +313,21 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
 
     public void setArmor(Armor armor) {
         this.armor = armor;
+    }
+
+    public int getMaxLifeNumber() {
+        return maxLifeNumber;
+    }
+
+    public void setMaxLifeNumber(int maxLifeNumber) {
+        this.maxLifeNumber = maxLifeNumber;
+    }
+
+    public int getMaxPowerNumber() {
+        return maxPowerNumber;
+    }
+
+    public void setMaxPowerNumber(int maxPowerNumber) {
+        this.maxPowerNumber = maxPowerNumber;
     }
 }

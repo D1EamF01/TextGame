@@ -17,7 +17,7 @@ public class Boss extends Monster{
     @Override
     public String show(){
         String temp = "Boss:";
-        temp += super.show();
+        temp += super.showPlay();
         return temp;
     }
 

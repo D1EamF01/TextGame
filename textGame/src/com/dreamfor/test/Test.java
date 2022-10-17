@@ -11,6 +11,7 @@ import com.dreamfor.people.Monster;
 import com.dreamfor.people.User;
 import com.dreamfor.playlink.PlayLink;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Test {
@@ -64,9 +65,17 @@ public class Test {
 //        ArrayList<GameLevelDemo> levels = GameLevelDemo.createLevelList();
 //        GameLevelDemo.showLevelsAll(levels);
 //
-        System.out.println("=====================关卡流程初步测试（速度值比较先后）=====================");
-        Gamer g = new User();
-        g.getGamerInformationByTips();
-        PlayLink.play(g);
+//        System.out.println("=====================关卡流程初步测试（速度值比较先后）=====================");
+//        Gamer g = new User();
+//        g.setName("黑旋风");
+////        g.getGamerInformationByTips();
+//        PlayLink.play(g);
+
+        System.out.println("=====================关卡整体流程确认=====================");
+        Gamer g1 = new User();
+        Gamer g2 = new User();
+        g1.getGamerInformationByTips();
+        g2.getGamerInformationByTips();
+        PlayLink.play(g1, g2);
     }
 }
