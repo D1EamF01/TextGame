@@ -5,7 +5,7 @@ import com.dreamfor.object.Weapon;
 
 import java.util.Scanner;
 
-public abstract class Gamer implements GamePeople, Comparable<Gamer>{
+public abstract class Gamer implements GamePeople, Comparable<Gamer> {
     protected String name;
     // 名称
 
@@ -54,13 +54,17 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
     // 防具
 
 
+    public Gamer() {
+    }
+
     /**
      * 闪避攻击判定
      * 闪避速度计算，理论两者数值越大，则闪避补偿越少，同时，对于速度值差距过大的补偿较为可观
+     *
      * @return 闪避结果，成功true：false
      */
-    public boolean dodgeAttack(Gamer attacker, Gamer dodger){
-        return attacker.speedNumber < (dodger.speedNumber + (int)(Math.random() * attacker.speedNumber / dodger.speedNumber));
+    public boolean dodgeAttack(Gamer attacker, Gamer dodger) {
+        return attacker.speedNumber < (dodger.speedNumber + (int) (Math.random() * attacker.speedNumber / dodger.speedNumber));
     }
 
     @Override
@@ -82,12 +86,13 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
     }
 
     @Override
-    public int compareTo(Gamer g){
+    public int compareTo(Gamer g) {
         return g.speedNumber - this.speedNumber;
     }
 
     /**
      * 角色死亡判定
+     *
      * @return 死亡 true， 否则false
      */
     @Override
@@ -97,28 +102,30 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
 
     @Override
     public boolean getOut(Gamer o) {
-        if(o.speedNumber > speedNumber){
+        if (o.speedNumber > speedNumber) {
             return false;
-        } else{
+        } else {
             return true;
         }
     }
 
     /**
      * 战斗函数
+     *
      * @param g 为攻击目标
      * @return 攻击成功返回true，否则返回false
      */
     @Override
     public boolean fight(Gamer g) {
-        if(g != null){
+        if (g != null) {
             int damage = attackNumber;
-            if(weapon != null){
+            if (weapon != null) {
                 damage += weapon.getAttackNumber();
             }
-            if(dodgeAttack(this,g) && (int)(Math.random() * this.speedNumber * 10) % (int)(Math.random() * g.speedNumber * 10) == 0) return false;
+            if (dodgeAttack(this, g) && (int) (Math.random() * this.speedNumber * 10) % (int) (Math.random() * g.speedNumber * 10) == 0)
+                return false;
             return !g.defence(damage);
-        } else{
+        } else {
             System.out.println("未指定对手，请重试");
             return false;
         }
@@ -126,13 +133,14 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
 
     /**
      * 防御函数，内部进行伤害计算
+     *
      * @param damage 是需要判定防御的伤害值
      * @return 防御成功返回true，否则返回false
      */
     @Override
     public boolean defence(int damage) {
         if ((armor != null && damage < armor.getDefenceNumber() + defenceNumber) || damage < defenceNumber) {
-            if(armor != null) armor.setDurabilityNumber(armor.getDurabilityNumber() - 1);
+            if (armor != null) armor.setDurabilityNumber(armor.getDurabilityNumber() - 1);
             return true;
         } else {
             lifeNumber -= damage;
@@ -140,36 +148,39 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
         }
     }
 
-    /**'
+    /**
+     * '
      * 输出现有角色状况
-     * @return 返回现有角色状况,且每一层尾部增加回车
+     *
+     * @return 返回现有角色状况, 且每一层尾部增加回车
      */
     @Override
-    public String show(){
+    public String show() {
         String temp = "";
         temp += name;
-        if(this instanceof User) {
+        if (this instanceof User) {
             temp += ", " + sex + " 今年" + age + "岁。\n";
 //            if(sex != 0) temp += ", " + sex;
-            if(bornLocation != null) temp += "来自于" + bornLocation + "\n";
+            if (bornLocation != null) temp += "来自于" + bornLocation + "\n";
         }
         temp += "攻击力:" + attackNumber + "\n防御力:" + defenceNumber + "\n速度:" + speedNumber + "\n当前生命值:" + lifeNumber + "\n当前法力值:" + powerNumber;
-        if(weapon != null) temp += "\n武器:" + weapon.getObjectName();
-        if(armor != null) temp += "\n防具:" + armor.getObjectName();
+        if (weapon != null) temp += "\n武器:" + weapon.getObjectName();
+        if (armor != null) temp += "\n防具:" + armor.getObjectName();
         return temp + "\n";
     }
 
     /**
      * 输出角色的属性值，不输出其余所有
+     *
      * @return 返回现有角色的各个属性值，为战斗而设置的函数
      */
     @Override
-    public String showPlay(){
+    public String showPlay() {
         String temp = "";
         temp += name + "\n";
         temp += "攻击力:" + attackNumber + "\n防御力:" + defenceNumber + "\n速度:" + speedNumber + "\n当前生命值:" + lifeNumber + "\n当前法力值:" + powerNumber;
-        if(weapon != null) temp += "\n武器:" + weapon.getObjectName();
-        if(armor != null) temp += "\n防具:" + armor.getObjectName();
+        if (weapon != null) temp += "\n武器:" + weapon.getObjectName();
+        if (armor != null) temp += "\n防具:" + armor.getObjectName();
         return temp + "\n";
     }
 
@@ -178,14 +189,15 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
      * 生成范围：生命值，法力值，100-200
      * 攻击力，防御力，20-50
      * 速度，1-10
+     *
      * @return 赋值成功返回true，否则返回false
      */
-    protected boolean getRamdomValueGamer(){
-        if(lifeNumber == 0) this.lifeNumber = (int) (Math.random() * 100 + 100);
-        if(powerNumber == 0) this.powerNumber = (int) (Math.random() * 100 + 100);
-        if(attackNumber == 0) this.attackNumber = (int) (Math.random() * 30 + 20);
-        if(defenceNumber == 0) this.defenceNumber = (int) (Math.random() * 30 + 20);
-        if(speedNumber == 0) this.speedNumber = (int) (Math.random() * 7 + 3);
+    protected boolean getRamdomValueGamer() {
+        if (lifeNumber == 0) this.lifeNumber = (int) (Math.random() * 100 + 100);
+        if (powerNumber == 0) this.powerNumber = (int) (Math.random() * 100 + 100);
+        if (attackNumber == 0) this.attackNumber = (int) (Math.random() * 30 + 20);
+        if (defenceNumber == 0) this.defenceNumber = (int) (Math.random() * 30 + 20);
+        if (speedNumber == 0) this.speedNumber = (int) (Math.random() * 7 + 3);
         maxLifeNumber = lifeNumber;
         maxPowerNumber = powerNumber;
         maxSpeedNumber = speedNumber;
@@ -194,10 +206,11 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
 
     /**
      * 通过提示创建角色
+     *
      * @return 创建成功返回true，否则返回false
      */
     @Override
-    public boolean getGamerInformationByTips(){
+    public boolean getGamerInformationByTips() {
         Scanner sc = new Scanner(System.in);
         System.out.printf("请输入角色姓名：");
         this.name = sc.nextLine();
@@ -214,9 +227,6 @@ public abstract class Gamer implements GamePeople, Comparable<Gamer>{
         System.out.println("剩余角色具体属性将随机生成……");
         getRamdomValueGamer();
         return true;
-    }
-
-    public Gamer() {
     }
 
     public String getName() {

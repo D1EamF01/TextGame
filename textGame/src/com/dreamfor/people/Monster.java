@@ -1,12 +1,9 @@
 package com.dreamfor.people;
 
-import com.dreamfor.object.Armor;
-import com.dreamfor.object.Weapon;
-
 import java.util.ArrayList;
 
-public class Monster extends Gamer{
-    public static ArrayList<String> monsterNames = new ArrayList<String>(){
+public class Monster extends Gamer {
+    public static ArrayList<String> monsterNames = new ArrayList<String>() {
         {
             add("张三");
             add("李四");
@@ -17,13 +14,16 @@ public class Monster extends Gamer{
     };
     // 怪物名称生成静态变量
 
+    public Monster() {
+    }
+
     @Override
-    public boolean fight(Gamer g){
-        if(g == null){
+    public boolean fight(Gamer g) {
+        if (g == null) {
             System.out.println("未指定对象！");
             return false;
         }
-        if(super.fight(g)){
+        if (super.fight(g)) {
             System.out.println(name + "嘶吼着对" + g.name + "造成了伤害！");
 //            g.speedNumber = (g.speedNumber - 1) <= 0 ? 1 : g.speedNumber - 1;
             return true;
@@ -34,13 +34,13 @@ public class Monster extends Gamer{
     }
 
     @Override
-    public boolean defence(int damage){
-        if(super.defence(damage)){
+    public boolean defence(int damage) {
+        if (super.defence(damage)) {
             System.out.println("未能撕开" + name + "厚实的皮肉");
             return true;
         } else {
             System.out.println("成功撕裂" + name + "的保护，造成了伤害！");
-            if(die()){
+            if (die()) {
                 System.out.println(name + "已阵亡！");
             }
             return false;
@@ -53,8 +53,8 @@ public class Monster extends Gamer{
      * 数值随机
      * 其余所有设定未设置
      */
-    public void createRandomNameMonster(){
-        this.name = Monster.monsterNames.get((int) (Math.random() * Monster.monsterNames.size())) + (int)(Math.random() * 1000);
+    public void createRandomNameMonster() {
+        this.name = Monster.monsterNames.get((int) (Math.random() * Monster.monsterNames.size())) + (int) (Math.random() * 1000);
         this.getRamdomValueGamer();
 
         this.speedNumber = (this.speedNumber % 5) <= 0 ? 1 : this.speedNumber % 5;
@@ -62,9 +62,6 @@ public class Monster extends Gamer{
         this.maxSpeedNumber = speedNumber;
 
         this.setSex(Math.random() > 0.5 ? '男' : '女');
-        this.setAge((int)(Math.random() * 82 + 18));
-    }
-
-    public Monster() {
+        this.setAge((int) (Math.random() * 82 + 18));
     }
 }

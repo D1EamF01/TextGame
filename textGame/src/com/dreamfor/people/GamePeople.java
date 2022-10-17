@@ -5,6 +5,7 @@ public interface GamePeople {
 
     /**
      * 战斗函数
+     *
      * @param g 为攻击目标
      * @return 攻击成功返回true，否则返回false
      */
@@ -14,6 +15,7 @@ public interface GamePeople {
 
     /**
      * 防御函数，内部进行伤害计算
+     *
      * @param damage 是需要判定防御的伤害值
      * @return 防御成功返回true，否则返回false
      */
@@ -29,26 +31,31 @@ public interface GamePeople {
     // 死亡返回true，未死亡返回false
     boolean die();
 
-    /**'
+    /**
+     * '
      * 输出现有角色状况
-     * @return 返回现有角色状况,且每一层尾部增加回车
+     *
+     * @return 返回现有角色状况, 且每一层尾部增加回车
      */
     String show();
 
     /**
      * 输出角色的属性值，不输出其余所有
+     *
      * @return 返回现有角色的各个属性值，为战斗而设置的函数
      */
     String showPlay();
 
     /**
      * 通过提示创建角色
+     *
      * @return 创建成功返回true，否则返回false
      */
     boolean getGamerInformationByTips();
 
     /**
      * 闪避攻击判定
+     *
      * @return 闪避结果，成功true：false
      */
     boolean dodgeAttack(Gamer attacker, Gamer dodger);

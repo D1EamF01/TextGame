@@ -1,18 +1,8 @@
 package com.dreamfor.test;
 
-import com.dreamfor.gamelevel.GameLevel;
-import com.dreamfor.gamelevel.GameLevelDemo;
-import com.dreamfor.gamelevel.NormalLevel;
-import com.dreamfor.object.Armor;
-import com.dreamfor.object.Weapon;
-import com.dreamfor.people.Boss;
 import com.dreamfor.people.Gamer;
-import com.dreamfor.people.Monster;
 import com.dreamfor.people.User;
 import com.dreamfor.playlink.PlayLink;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class Test {
     public static void main(String[] args) {

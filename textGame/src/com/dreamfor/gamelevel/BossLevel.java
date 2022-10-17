@@ -4,8 +4,8 @@ import com.dreamfor.people.Boss;
 
 import java.util.ArrayList;
 
-public class BossLevel extends GameLevelDemo{
-    public static ArrayList<String> bossLevelNames = new ArrayList(){
+public class BossLevel extends GameLevelDemo {
+    public static ArrayList<String> bossLevelNames = new ArrayList() {
         {
             add("拥抱大群");
             add("认知即重担");
@@ -22,12 +22,12 @@ public class BossLevel extends GameLevelDemo{
      * 数值随机
      * 其余所有设定未设置
      */
-    public void createRandomBossLevel(){
+    public void createRandomBossLevel() {
         this.name = BossLevel.bossLevelNames.get((int) (Math.random() * BossLevel.bossLevelNames.size()));
         this.monsterNumber = 1;
         Boss bs = new Boss();
         bs.createRandomNameBoss();
-        this.monstersList = new ArrayList(){{
+        this.monstersList = new ArrayList() {{
             add(bs);
         }};
     }

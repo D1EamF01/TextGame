@@ -2,8 +2,8 @@ package com.dreamfor.people;
 
 import java.util.ArrayList;
 
-public class Boss extends Monster{
-    public static ArrayList<String> bossNames = new ArrayList<String>(){
+public class Boss extends Monster {
+    public static ArrayList<String> bossNames = new ArrayList<String>() {
         {
             add("无声");
             add("狄克玛拉");
@@ -14,8 +14,11 @@ public class Boss extends Monster{
     };
     // Boss名称生成静态变量
 
+    public Boss() {
+    }
+
     @Override
-    public String show(){
+    public String show() {
         String temp = "Boss:";
         temp += super.showPlay();
         return temp;
@@ -26,7 +29,7 @@ public class Boss extends Monster{
      * 生命力和法力值皆为普通怪的十倍
      * 速度为普通怪的1 / 2
      */
-    public void createRandomNameBoss(){
+    public void createRandomNameBoss() {
         this.createRandomNameMonster();
         this.name = Boss.bossNames.get((int) (Math.random() * Boss.bossNames.size()));
         this.getRamdomValueGamer();
@@ -34,9 +37,6 @@ public class Boss extends Monster{
         this.powerNumber *= 10;
         this.speedNumber /= 2;
         this.setSex(Math.random() > 0.5 ? '男' : '女');
-        this.setAge((int)(Math.random() * 820 + 180));
-    }
-
-    public Boss() {
+        this.setAge((int) (Math.random() * 820 + 180));
     }
 }

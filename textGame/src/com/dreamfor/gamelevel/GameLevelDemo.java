@@ -6,7 +6,7 @@ import com.dreamfor.people.Monster;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public abstract class GameLevelDemo implements GameLevel{
+public abstract class GameLevelDemo implements GameLevel {
 
 
     protected String name;
@@ -21,8 +21,45 @@ public abstract class GameLevelDemo implements GameLevel{
     protected int gameLevelCheck;
     // 所在关卡
 
+    public GameLevelDemo() {
+    }
+
+    /**
+     * 创建一个完整的关卡，并返回关卡列表
+     *
+     * @return 完整关卡列表（随机数量(2 - 5之间)随即关卡 + 一个boss关卡）
+     */
+    public static ArrayList<GameLevelDemo> createLevelList() {
+        ArrayList<GameLevelDemo> levels = new ArrayList();
+        NormalLevel gl;
+        BossLevel bl = new BossLevel();
+        int levelNumber = (int) (Math.random() * 5 + 5);
+        for (int i = 0; i < levelNumber; i++) {
+            gl = new NormalLevel();
+            gl.createRandomNormalLevel((int) (Math.random() * 3) + 2);
+            gl.setGameLevelCheck(i);
+            levels.add(gl);
+        }
+        bl.setGameLevelCheck(levelNumber);
+        bl.createRandomBossLevel();
+        levels.add(bl);
+        return levels;
+    }
+
+    /**
+     * 展示所有关卡信息，直接输出
+     *
+     * @param levels 所有关卡的集合类
+     */
+    public static void showLevelsAll(ArrayList<GameLevelDemo> levels) {
+        for (int i = 0; i < levels.size(); i++) {
+            System.out.println(levels.get(i).showLevel());
+        }
+    }
+
     /**
      * 创建当前关卡怪物的函数
+     *
      * @param n，表示生成的怪物数量
      * @return true
      */
@@ -43,12 +80,13 @@ public abstract class GameLevelDemo implements GameLevel{
 
     /**
      * 进入关卡的判断函数
+     *
      * @param g 与关卡交互的角色
      * @return 成功进入返回true，否则返回false
      */
     @Override
     public boolean getIn(Gamer g) {
-        if(g == null || g.getCheckPoint() > gameLevelCheck)
+        if (g == null || g.getCheckPoint() > gameLevelCheck)
             return false;
         g.setCheckPoint(gameLevelCheck);
         return true;
@@ -56,12 +94,13 @@ public abstract class GameLevelDemo implements GameLevel{
 
     /**
      * 退出关卡设定
+     *
      * @param g 与关卡交互的角色
      * @return 成功退出返回true，否则返回false
      */
     @Override
     public boolean getOut(Gamer g) {
-        if(g != null && g.getCheckPoint() == gameLevelCheck){
+        if (g != null && g.getCheckPoint() == gameLevelCheck) {
             g.setCheckPoint(0);
             return true;
         }
@@ -70,12 +109,13 @@ public abstract class GameLevelDemo implements GameLevel{
 
     /**
      * 生成当前关卡的详细数据
+     *
      * @return 由当前关卡中的数据组合而成的字符串
      */
     @Override
-    public String showLevel(){
+    public String showLevel() {
         String temp = "";
-        if(this instanceof NormalLevel)
+        if (this instanceof NormalLevel)
             temp += "关卡名：";
         else
             temp += "Boss关卡：";
@@ -85,17 +125,17 @@ public abstract class GameLevelDemo implements GameLevel{
 
         String tempAsk = "";
         tempAsk += "请问是否需要列出" + "第" + gameLevelCheck + "层";
-        if(this instanceof NormalLevel) tempAsk += "关卡：";
+        if (this instanceof NormalLevel) tempAsk += "关卡：";
         else tempAsk += "Boss关：";
         tempAsk += "\"" + name + "\"的怪物情况？1:OK 2:No";
         System.out.println(tempAsk);
 
         int choose = sc.nextInt();
-        while(choose != 1 && choose != 2){
+        while (choose != 1 && choose != 2) {
             System.out.println("输入有误，请重新输入!");
             choose = sc.nextInt();
         }
-        if(choose == 1){
+        if (choose == 1) {
             temp += "=====================\n";
             for (int i = 0; i < monstersList.size(); i++) {
                 temp += monstersList.get(i).showPlay();
@@ -106,45 +146,11 @@ public abstract class GameLevelDemo implements GameLevel{
     }
 
     /**
-     * 创建一个完整的关卡，并返回关卡列表
-     * @return 完整关卡列表（随机数量(2 - 5之间)随即关卡 + 一个boss关卡）
-     */
-    public static ArrayList<GameLevelDemo> createLevelList(){
-        ArrayList<GameLevelDemo> levels = new ArrayList();
-        NormalLevel gl;
-        BossLevel bl = new BossLevel();
-        int levelNumber = (int) (Math.random() * 5 + 5);
-        for (int i = 0; i < levelNumber; i++) {
-            gl = new NormalLevel();
-            gl.createRandomNormalLevel((int) (Math.random() * 3) + 2);
-            gl.setGameLevelCheck(i);
-            levels.add(gl);
-        }
-        bl.setGameLevelCheck(levelNumber);
-        bl.createRandomBossLevel();
-        levels.add(bl);
-        return levels;
-    }
-
-    /**
      * 初始化怪物列表
      */
-    private void initMonstersList(){
+    private void initMonstersList() {
         monstersList = null;
         monsterNumber = 0;
-    }
-
-    /**
-     * 展示所有关卡信息，直接输出
-     * @param levels 所有关卡的集合类
-     */
-    public static void showLevelsAll(ArrayList<GameLevelDemo> levels){
-        for (int i = 0; i < levels.size(); i++) {
-            System.out.println(levels.get(i).showLevel());
-        }
-    }
-
-    public GameLevelDemo() {
     }
 
     public String getName() {
